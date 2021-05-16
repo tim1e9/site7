@@ -2,16 +2,16 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import authService from '../../services/authService'
-import chartersService from '../../services/chartersService'
+import {setAccessToken, getAllCharters} from '../../services/chartersService'
 
 export default function Welcome() {
     const [chartersResp, setChartersResp] = React.useState([]);
 
     React.useEffect( () => {
       const token = authService.getAccessToken();
-      chartersService.setAccessToken(token);
+      setAccessToken(token);
       async function fetchData() {
-        const result = chartersService.getAllCharters();
+        const result = getAllCharters();
         setChartersResp(result);
         console.log("RESULT: " + JSON.stringify(result));
         }
