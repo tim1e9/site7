@@ -1,10 +1,10 @@
-const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
+import {AuthenticationDetails, CognitoUserPool, CognitoUser} from 'amazon-cognito-identity-js';
 
 const poolData = {
 	UserPoolId: 'us-east-2_IQjZauYKd', // Your user pool id here
 	ClientId: '2bd7vks5mn0no7l1er6v0amjog', // Your client id here
 };
-const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+const userPool = new CognitoUserPool(poolData);
 
 let cognitoUser = null;
 
@@ -47,12 +47,12 @@ const getUserAttribs = () => {
 
 const loginUser = (username, password) => {
     let loginPromise = new Promise((resolve, reject) => {
-        const authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails({
+        const authenticationDetails = new AuthenticationDetails({
             Username: username,
             Password: password,
         });
     
-        cognitoUser = new AmazonCognitoIdentity.CognitoUser({
+        cognitoUser = new CognitoUser({
             Username: username,
             Pool: userPool,
         });
@@ -86,10 +86,12 @@ const logoutUser = () => {
     return true;
 }
 
-module.exports = {
+const charterService = {
     loginUser,
     completeUserRegistration,
     getUserAttribs,
     logoutUser,
     getAccessToken
-}
+};
+
+export default charterService;

@@ -1,13 +1,13 @@
-const axios = require('axios');
+import axios from 'axios';
 
 const SERVER_URL = "https://9ygu2ddcy0.execute-api.us-east-2.amazonaws.com/crowleyworks-api-deploy-to-dev/charters";
 let accessToken = null;
 
-export const setAccessToken = ( newToken ) => {
+const setAccessToken = ( newToken ) => {
     accessToken = newToken;
 };
 
-export const getAllCharters = async () => {
+const getAllCharters = async () => {
     const result = await axios.get(
         SERVER_URL, {
             headers: {
@@ -18,7 +18,6 @@ export const getAllCharters = async () => {
     return result;
 };
 
-module.exports = {
-    getAllCharters,
-    setAccessToken
-}
+const charterService = { getAllCharters, setAccessToken };
+
+export default charterService;
